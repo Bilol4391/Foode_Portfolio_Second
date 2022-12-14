@@ -120,7 +120,7 @@ class _PaymentPageState extends State<PaymentPage> {
           GestureDetector(
             onTap: (){
               if(index != -1){
-                Navigator.of(context).push(MaterialPageRoute(builder: (_)=>UploadPhoto()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (_)=>UploadImageScreen()));
               }
             },
             child: Container(
