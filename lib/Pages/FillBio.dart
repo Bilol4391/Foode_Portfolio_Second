@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foode/Pages/paymentPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FillBio extends StatefulWidget {
   const FillBio({Key? key}) : super(key: key);
@@ -553,8 +554,10 @@ class _FillBioState extends State<FillBio> {
                 : SizedBox.shrink(),
 
             GestureDetector(
-              onTap: (){
+              onTap: () async {
                 if (fullname.text.isNotEmpty && nickname.text.isNotEmpty && phone.text.isNotEmpty  && adress.text.isNotEmpty){
+                  SharedPreferences _store = await SharedPreferences.getInstance();
+                  _store.setString("name", fullname.text);
                   Navigator.of(context).push(MaterialPageRoute(builder: (_)=>PaymentPage()));
                 }
                 else if (fullname.text.isEmpty && nickname.text.isEmpty && phone.text.isEmpty  && adress.text.isEmpty){

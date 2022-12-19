@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:foode/Pages/HomePage.dart';
+import 'package:foode/Pages/Sign_in.dart';
 import 'package:foode/Pages/onBoarding.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -12,10 +15,18 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 3), () {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (_) => OnBoarding()));
-    });
+    Future.delayed(Duration(seconds: 3), () async {
+      SharedPreferences _store = await SharedPreferences.getInstance();
+      String name = _store.getString("name") ?? "";
+      if (name.isEmpty){
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => OnBoarding()));
+        } else {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => HomePage()));
+      }
+      }
+    );
   }
   @override
   Widget build(BuildContext context) {

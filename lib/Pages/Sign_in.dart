@@ -4,6 +4,7 @@ import 'package:foode/Pages/FillBio.dart';
 import 'package:foode/Pages/Sign_up.dart';
 import 'package:foode/Pages/Temp.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -324,7 +325,7 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
               GestureDetector(
-                 onTap: (){
+                 onTap: () async {
                    if (email.text.isNotEmpty && password.text.isNotEmpty){
                      if(email.text != email_1){
                        isEmailIncorrect = true;

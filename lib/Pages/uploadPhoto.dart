@@ -3,10 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foode/Pages/HomePage.dart';
+import 'package:foode/Pages/LocationPage.dart';
 import 'package:foode/pages/splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UploadImageScreen extends StatefulWidget {
   const UploadImageScreen({Key? key}) : super(key: key);
@@ -75,7 +78,6 @@ class _UploadImageScreenState extends State<UploadImageScreen> {
                     height: 1.4),
               ),
             ),
-
             imagePath.isEmpty
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,18 +101,19 @@ class _UploadImageScreenState extends State<UploadImageScreen> {
                           height: 170.h,
                           width: 380.w,
                           decoration: BoxDecoration(
-                            color: Color(0xffffffff),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20.r)),
-                                border: Border.all(color: Color(0xffEBEEF2),),
+                              color: Color(0xffffffff),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.r)),
+                              border: Border.all(
+                                color: Color(0xffEBEEF2),
+                              ),
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.grey,
                                   blurRadius: 1,
                                   offset: Offset(-0, 1),
                                 )
-                              ]
-                          ),
+                              ]),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -122,11 +125,25 @@ class _UploadImageScreenState extends State<UploadImageScreen> {
                                   shape: BoxShape.circle,
                                   color: Color(0xffF43F5E).withOpacity(0.1.r),
                                 ),
-                                child: IconButton(onPressed: () {}, icon: SvgPicture.asset("assets/svg/camera-svgrepo-com.svg", color: Color(0xffFF1843), width: 32.w, height: 32.h,),),
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: SvgPicture.asset(
+                                    "assets/svg/camera-svgrepo-com.svg",
+                                    color: Color(0xffFF1843),
+                                    width: 32.w,
+                                    height: 32.h,
+                                  ),
+                                ),
                               ),
                               Container(
                                 margin: EdgeInsets.only(top: 15.r),
-                                child: Text("Take photo", style: GoogleFonts.sourceSansPro(fontWeight: FontWeight.w600, fontSize: 16.sp, color: Color(0xff09101D)),),
+                                child: Text(
+                                  "Take photo",
+                                  style: GoogleFonts.sourceSansPro(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16.sp,
+                                      color: Color(0xff09101D)),
+                                ),
                               ),
                             ],
                           ),
@@ -148,46 +165,60 @@ class _UploadImageScreenState extends State<UploadImageScreen> {
                           setState(() {});
                         },
                         child: Container(
-                            height: 170.h,
-                            width: 380.w,
-                            decoration: BoxDecoration(
-                                color: Color(0xffffffff),
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(20.r)),
-                                border: Border.all(color: Color(0xffEBEEF2),),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 1,
-                                    offset: Offset(-0, 1),
-                                  )
-                                ]
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 80.h,
-                                  width: 80.w,
-                                  margin: EdgeInsets.only(top: 22.r),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Color(0xffF43F5E).withOpacity(0.1.r),
+                          height: 170.h,
+                          width: 380.w,
+                          decoration: BoxDecoration(
+                              color: Color(0xffffffff),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.r)),
+                              border: Border.all(
+                                color: Color(0xffEBEEF2),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  blurRadius: 1,
+                                  offset: Offset(-0, 1),
+                                )
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 80.h,
+                                width: 80.w,
+                                margin: EdgeInsets.only(top: 22.r),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Color(0xffF43F5E).withOpacity(0.1.r),
+                                ),
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: SvgPicture.asset(
+                                    "assets/svg/foldersvg.svg",
+                                    color: Color(0xffFF1843),
+                                    width: 32.w,
+                                    height: 32.h,
                                   ),
-                                  child: IconButton(onPressed: () {}, icon: SvgPicture.asset("assets/svg/foldersvg.svg", color: Color(0xffFF1843), width: 32.w, height: 32.h,),),
                                 ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 15.r),
-                                  child: Text("From gallery", style: GoogleFonts.sourceSansPro(fontWeight: FontWeight.w600, fontSize: 16.sp, color: Color(0xff09101D)),),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 15.r),
+                                child: Text(
+                                  "From gallery",
+                                  style: GoogleFonts.sourceSansPro(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16.sp,
+                                      color: Color(0xff09101D)),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
+                        ),
                       ),
                     ],
                   )
                 : SizedBox.shrink(),
-
             24.verticalSpace,
             imagePath.isEmpty
                 ? SizedBox.shrink()
@@ -291,24 +322,36 @@ class _UploadImageScreenState extends State<UploadImageScreen> {
                       )
                     ],
                   ),
-
             Spacer(),
             InkWell(
-              onTap: () {
-                imagePath.isEmpty
-                    ? null
-                    : Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => SplashScreen()));
+              onTap: () async {
+                if (imagePath.isNotEmpty) {
+                  SharedPreferences _local =
+                      await SharedPreferences.getInstance();
+                  _local.setString("image", imagePath);
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (_) => HomePage()), (s){
+                        return false;
+                  });
+                }
               },
               child: Container(
                 width: double.infinity,
                 height: 56.h,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(100.r)),
+                    borderRadius: BorderRadius.all(Radius.circular(100.r)),
                     color: imagePath.isEmpty
                         ? Colors.pinkAccent.withOpacity(0.5)
                         : Colors.pinkAccent),
-                child: Center(child: Text("Next", style: GoogleFonts.sourceSansPro(fontWeight: FontWeight.w600, fontSize: 18, color: Color(0xffffffff), ),)),
+                child: Center(
+                    child: Text(
+                  "Next",
+                  style: GoogleFonts.sourceSansPro(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                    color: Color(0xffffffff),
+                  ),
+                )),
               ),
             ),
           ],
